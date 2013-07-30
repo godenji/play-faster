@@ -85,7 +85,7 @@ How Not to Shoot yourself in Foot
 4. Avoid excessive use of self types
 5. Specifying return type means less work for scalac to do
 6. Implicits are quite useful, but don't go overboard
-7. Be secretive; i.e. use private def and friends to hide dependent code from scalac (particularly helpful during incremental builds)
+7. Be secretive: use private def and friends to hide dependent code from scalac
 8. _ your nugget here _ (pull request)
 
 
