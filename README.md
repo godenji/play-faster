@@ -81,7 +81,7 @@ How Not to Shoot yourself in Foot
 
 1. Use sub projects (this is a huge WIN)
 2. No need to .aggregate everything; for not-often-changing sub projects .dependsOn is enough
-3. Consider replacing cake pattern with design by contract; cake if you _really_ need it.
+3. Consider replacing cake pattern with design by contract; i.e. cake if you _really_ need it.
 4. Avoid excessive use of self types
 5. Specifying return type means less work for scalac to do
 6. Implicits are quite useful, but don't go overboard
