@@ -34,9 +34,6 @@ moves sbt compile target from project directory to tmpfs mounted directory (I us
 
 generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
 
-4. Disables built-in assets compilation (optional)
-
-using a 3rd party assets build system (e.g. Bower + GruntJS) allows for rapid fire code-change/browser-refresh cycles, something that as of Play 2 is simply not happening (assets compilation continues to be _very_ slow). To re-enable built-in assets compilation just comment/remove the "lessEntryPoints" line from included Build.scala.
 
 
 \* to keep compile target default, comment out "eclipseSettings" in Settings.scala; i.e.
