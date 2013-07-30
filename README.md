@@ -24,11 +24,11 @@ What's Inside
 
 The project consists of a Build.scala that:
 
-1) moves sbt cache config & update dependencies directories out of clean's reach -- play> clean by default removes sbt deps dirs, which is why on EVERY clean/compile a deps update check is made, needlessly slowing down each build.
+1. moves sbt cache config & update dependencies directories out of clean's reach -- play> clean by default removes sbt deps dirs, which is why on EVERY clean/compile a deps update check is made, needlessly slowing down each build.
 
-2) moves sbt compile target from project directory to tmpfs mounted directory (I use /tmp/sbt). This is optional*, YMMV. Only shaves off a few seconds from the build time, but more importantly, it does offload I/O thrashing from your precious SSD into RAM.
+2. moves sbt compile target from project directory to tmpfs mounted directory (I use /tmp/sbt). This is optional*, YMMV. Only shaves off a few seconds from the build time, but more importantly, it does offload I/O thrashing from your precious SSD into RAM.
 
-3) generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
+3. generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
 
 * to keep compile target default, comment out "eclipseSettings" in Settings.scala; i.e.
     protected def _settings: Seq[Setting[_]] = { 
@@ -48,12 +48,12 @@ Compile target in RAM approach assumes that you have a tmpfs mounted directory; 
 Run a play> update to seed sbt deps cache (will be presevered across future play> clean-s); then do a clean/compile to populate tmpfs (or default) compile target. Finally, generate eclipse project settings: play> eclipse (skipParents=false if you want aggregator project included). Done, enjoy ;-)
 
 * to create a linked resource in Eclipse do the following:
-1) create path variable: 
+1. create path variable: 
     preferences > (in search field) type "linked" > click Linked Resources > click New > 
     type a name (i.e. the value you provided for Transformers.scala "tmpfs" val)
     then browse to your tmpfs mounted directory (e.g. /tmp/sbt)
 
-2) create linked resource: right click any folder in your main (aggregator project) and do:
+2. create linked resource: right click any folder in your main (aggregator project) and do:
     file > new > advanced > check Link to filesystem > click Variables > 
     select path tmpfs variable you created in step 1.
 
@@ -61,14 +61,14 @@ Run a play> update to seed sbt deps cache (will be presevered across future play
 How Not to Shoot yourself in Foot (general scala best practices)
 -----------
 
-1) Use sub projects (this is a huge WIN)
-2) No need to .aggregate everything; for not-often-changing sub projects .dependsOn is enough
-3) Consider replacing cake pattern with design by contract.
-4) Avoid excessive use of self types
-5) Specifying return type means less work for scalac to do
-6) Implicits are quite useful, but don't go overboard
-7) Be secretive; i.e. use private def and friends to hide compilable dependent code from scalac (this can be particularly helpful during incremental builds)
-8) _ your nugget here _ (pull request)
+1. Use sub projects (this is a huge WIN)
+2. No need to .aggregate everything; for not-often-changing sub projects .dependsOn is enough
+3. Consider replacing cake pattern with design by contract.
+4. Avoid excessive use of self types
+5. Specifying return type means less work for scalac to do
+6. Implicits are quite useful, but don't go overboard
+7. Be secretive; i.e. use private def and friends to hide compilable dependent code from scalac (this can be particularly helpful during incremental builds)
+8. _ your nugget here _ (pull request)
 
 
 JVM options
@@ -83,9 +83,9 @@ These settings (again, for my setup) result in optimal build times. -Xss option 
 Hardware Essentials
 ------------
 
-1) Fast CPU (i7 extreme if you have the $$)
-2) Fast disk
-3) Enough RAM
+1. Fast CPU (i7 extreme if you have the $$)
+2. Fast disk
+3. Enough RAM
 
 
 Results
