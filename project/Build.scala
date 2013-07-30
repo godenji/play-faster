@@ -22,7 +22,13 @@ object ApplicationBuild extends Build with Transformers with Settings {
 
   lazy val aaMain = play.Project(appName + "-main", appVersion, settings = _settings).
   	settings(
-  		skip in update := true // prevent resolve deps on every clean/compile
-  	).dependsOn(common,foo,bar).aggregate(common,foo,bar)
+  		
+  		// disable built-in asset generators
+  		lessEntryPoints := Nil, coffeescriptEntryPoints := Nil, javascriptEntryPoints := Nil,
+  		
+  		// prevent sbt from resolving deps on every clean/compile
+  		skip in update := true
+  		
+  	).dependsOn(common,foo,bar).aggregate(foo,bar)
 
 }
