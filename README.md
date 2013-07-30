@@ -31,9 +31,9 @@ The project consists of a Build.scala that:
 3. generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
 
 \* to keep compile target default, comment out "eclipseSettings" in Settings.scala; i.e.
-    protected def _settings: Seq[Setting[_]] = { 
-      superSettings ++ ivySettings //++ eclipseSettings
-    }
+		protected def _settings: Seq[Setting[_]] = { 
+			superSettings ++ ivySettings //++ eclipseSettings
+		}
 
 
 How to Use
@@ -42,21 +42,22 @@ How to Use
 Copy project/ Transformers.scala and Settings.scala to your main project/ directory. If moving sbt compile target to RAM is desired, modify "tmpfs" val in Transformers.scala with whatever variable name you set for the linked resource in Eclipse*, or keep "tmpfs" default value, "TARGET_TMPFS"
 
 Compile target in RAM approach assumes that you have a tmpfs mounted directory; if not, add to your /etc/fstab (save, reboot):
-    tmpfs	/dev/shm	tmpfs	defaults	0 0
-    tmpfs	/tmp	tmpfs	defaults	0 0
+		tmpfs	/dev/shm	tmpfs	defaults	0 0
+		tmpfs	/tmp	tmpfs	defaults	0 0
 
 Run a play> update to seed sbt deps cache (will be presevered across future play> clean-s); then do a clean/compile to populate tmpfs (or default) compile target. Finally, generate eclipse project settings: play> eclipse (skipParents=false if you want aggregator project included). Done, enjoy ;-)
 
 \* to create a linked resource in Eclipse do the following:
 
 1. create path variable: 
-    preferences > (in search field) type "linked" > click Linked Resources > click New > 
-    type a name (i.e. the value you provided for Transformers.scala "tmpfs" val)
-    then browse to your tmpfs mounted directory (e.g. /tmp/sbt)
+		preferences > (in search field) type "linked" > click Linked Resources > click New > 
+		type a name (i.e. the value you provided for Transformers.scala "tmpfs" val)
+		then browse to your tmpfs mounted directory (e.g. /tmp/sbt)
 
-2. create linked resource: right click any folder in your main (aggregator project) and do:
-    file > new > advanced > check Link to filesystem > click Variables > 
-    select path tmpfs variable you created in step 1.
+2. create linked resource: 
+		right click any folder in your main (aggregator project) and do:
+		file > new > advanced > check Link to filesystem > click Variables > 
+		select path tmpfs variable you created in step 1.
 
 
 How Not to Shoot yourself in Foot
@@ -76,7 +77,7 @@ JVM options
 ------------
 
 For my setup (Dell Precision M4700 | 3840QM 3.6ghz 8mb cache | 256gb SSD | 32gb RAM) have the following java opts in ~/.bash_profile:
-    JAVA_OPTS=-Xss8m -Xms512m -Xmx2048m -XX:MaxPermSize=512m -XX:ReservedCodeCacheSize=128m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC
+		JAVA_OPTS=-Xss8m -Xms512m -Xmx2048m -XX:MaxPermSize=512m -XX:ReservedCodeCacheSize=128m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC
 
 These settings (again, for my setup) result in optimal build times. -Xss option set to 1m,2m,4m were 10-20 seconds slower (4m, for some reason being the slowest). Setting a large -XX:ReservedCodeCacheSize also slowed down the build. Experiment, find out what works best for your setup.
 
