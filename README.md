@@ -22,22 +22,22 @@ Play 2 Scala applications on *nix systems, modify accordingly for Windows.
 What Does It Do?
 ----------
 
-1. Preserves sbt dependencies cache
+* Preserves sbt dependencies cache
 
 moves sbt cache config & update dependencies directories out of clean's reach -- play> clean by default removes sbt deps dirs, which is why on EVERY clean/compile a deps update check is made, needlessly slowing down the build, particularly for sub projects where the deps check is made for each project.
 
 
-2. Moves sbt compile target into RAM (optional*)
+* Moves sbt compile target into RAM (optional*)
 
 moves sbt compile target from project directory to tmpfs mounted directory (I use /tmp/sbt). Only shaves off a few seconds from the build time, but more importantly, it offloads I/O thrashing from your precious SSD into RAM.
 
 
-3. Integrates sbteclipse
+* Integrates sbteclipse
 
 generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
 
 
-4. Disables built-in assets compilation (optional)
+* Disables built-in assets compilation (optional)
 
 using a 3rd party assets build system (e.g. Bower + GruntJS) allows for rapid fire code-change/browser-refresh cycles, something that as of Play 2 is simply not happening (assets compilation continues to be _very_ slow). To re-enable built-in assets compilation just comment/remove the "lessEntryPoints" line from included Build.scala.
 
