@@ -9,13 +9,11 @@ Strips Play 2.x build process down to the essentials, reducing build times to ab
 
 Motivation
 ----------
-
-Isn't it obvious? The freedom of expression that Scala provides is not free
+Isn't it obvious? The freedom of expression that Scala provides is not free, and some aspects of this mostly fantastic web framework leave something to be desired (e.g. routing and assets compilation)
 
 
 Applies To
 ----------
-
 Play 2 Scala applications on *nix systems, modify accordingly for Windows.
 
 
