@@ -30,7 +30,7 @@ The project consists of a Build.scala that:
 
 3. generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
 
-* to keep compile target default, comment out "eclipseSettings" in Settings.scala; i.e.
+\* to keep compile target default, comment out "eclipseSettings" in Settings.scala; i.e.
     protected def _settings: Seq[Setting[_]] = { 
       superSettings ++ ivySettings //++ eclipseSettings
     }
@@ -47,15 +47,13 @@ Compile target in RAM approach assumes that you have a tmpfs mounted directory; 
 
 Run a play> update to seed sbt deps cache (will be presevered across future play> clean-s); then do a clean/compile to populate tmpfs (or default) compile target. Finally, generate eclipse project settings: play> eclipse (skipParents=false if you want aggregator project included). Done, enjoy ;-)
 
-* to create a linked resource in Eclipse do the following:
-1. 
-    create path variable: 
+\* to create a linked resource in Eclipse do the following:
+1. create path variable: 
     preferences > (in search field) type "linked" > click Linked Resources > click New > 
     type a name (i.e. the value you provided for Transformers.scala "tmpfs" val)
     then browse to your tmpfs mounted directory (e.g. /tmp/sbt)
 
-2. 
-    create linked resource: right click any folder in your main (aggregator project) and do:
+2. create linked resource: right click any folder in your main (aggregator project) and do:
     file > new > advanced > check Link to filesystem > click Variables > 
     select path tmpfs variable you created in step 1.
 
