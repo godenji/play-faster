@@ -9,24 +9,35 @@ Strips Play 2.x build process down to the essentials, reducing build times to ab
 
 Motivation
 ----------
+
 Isn't it obvious? The freedom of expression that Scala provides is not free, and some aspects of this mostly fantastic web framework leave something to be desired (e.g. routing and assets compilation)
 
 
 Applies To
 ----------
+
 Play 2 Scala applications on *nix systems, modify accordingly for Windows.
 
 
-What's Inside
+What Does It Do?
 ----------
 
-The project consists of a Build.scala that:
+Preserves sbt dependencies cache
 
-1. moves sbt cache config & update dependencies directories out of clean's reach -- play> clean by default removes sbt deps dirs, which is why on EVERY clean/compile a deps update check is made, needlessly slowing down each build.
+1. moves sbt cache config & update dependencies directories out of clean's reach -- play> clean by default removes sbt deps dirs, which is why on EVERY clean/compile a deps update check is made, needlessly slowing down the build, particularly for sub projects where the deps check is made for each project.
 
-2. moves sbt compile target from project directory to tmpfs mounted directory (I use /tmp/sbt). This is optional*, YMMV. Only shaves off a few seconds from the build time, but more importantly, it does offload I/O thrashing from your precious SSD into RAM.
+Moves sbt compile target into RAM (optional*)
+
+2. moves sbt compile target from project directory to tmpfs mounted directory (I use /tmp/sbt). Only shaves off a few seconds from the build time, but more importantly, it offloads I/O thrashing from your precious SSD into RAM.
+
+Integrates sbteclipse
 
 3. generates sbteclipse settings that allow for the above 2 steps to seamlessly occur with a simple play> eclipse
+
+Disables built-in assets compilation (optional)
+
+4. using a 3rd party assets build system (e.g. Bower + GruntJS) allows for rapid fire code-change/browser-refresh cycles, something that as of Play 2.1 is simply not happening (assets compilation continues to be _very_ slow). To re-enable built-in assets compilation just comment/remove the "lessEntryPoints" line from included Build.scala.
+
 
 \* to keep compile target default, comment out "eclipseSettings" in Settings.scala; i.e.
 
@@ -71,7 +82,7 @@ How Not to Shoot yourself in Foot
 4. Avoid excessive use of self types
 5. Specifying return type means less work for scalac to do
 6. Implicits are quite useful, but don't go overboard
-7. Be secretive; i.e. use private def and friends to hide compilable dependent code from scalac (this can be particularly helpful during incremental builds)
+7. Be secretive; i.e. use private def and friends to hide dependent code from scalac (particularly helpful during incremental builds)
 8. _ your nugget here _ (pull request)
 
 
@@ -84,7 +95,7 @@ For my setup (Dell Precision M4700 | 3840QM 3.6ghz 8mb cache | 256gb SSD | 32gb 
 
 These settings (again, for my setup) result in optimal build times. -Xss option set to 1m,2m,4m were 10-20 seconds slower (4m, for some reason being the slowest). 
 
-Setting a large -XX:ReservedCodeCacheSize also slowed down the build. Experiment, find out what works best for your setup.
+Setting a large -XX:ReservedCodeCacheSize also slowed down the build. Experiment, find out what works best for you.
 
 
 Hardware Essentials
