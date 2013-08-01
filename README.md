@@ -86,7 +86,8 @@ How Not to Shoot yourself in Foot
 5. Specifying return type means less work for scalac to do
 6. Implicits are quite useful, but don't go overboard
 7. Be secretive: use private def and friends to hide dependent code from scalac
-8. _ your nugget here _ (pull request)
+8. Generally adhere to source file per class/type convention
+9. Local method hacking: if method params & return type of a method remain unchanged, you can do _anything_ in the method body and scalac will be none the wiser (i.e. will not trigger recompilation of dependent code).
 
 
 JVM options
