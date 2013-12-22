@@ -2,6 +2,8 @@ logs
 project/project
 project/target
 target
+.target
+.cache
 tmp
 .history
 dist
@@ -14,3 +16,6 @@ dist
 /RUNNING_PID
 /.settings
 *~
+bin/
+sbt-cache-config/
+sbt-cache-update/
