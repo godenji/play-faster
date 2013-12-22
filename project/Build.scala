@@ -7,7 +7,7 @@ object ApplicationBuild extends Build with Transformers with Settings {
 	lazy val superSettings = super.settings 
 
   val appName = "play-faster"
-  val appVersion = "1.0"
+  val appVersion = "1.1"
 	
   lazy val common = play.Project(
    appName + "-common", appVersion, path = file("module/common"), settings = _settings)
