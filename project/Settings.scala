@@ -9,7 +9,9 @@ trait Settings {
   
   def superSettings: Seq[Setting[_]]
   protected def _settings: Seq[Setting[_]] = { 
-    superSettings ++ ivySettings ++ eclipseSettings
+    superSettings ++ ivySettings ++ eclipseSettings ++ Seq(
+    	doc in Compile <<= target.map(_ / "none") // don't generate API docs in dist
+    )
   }
   
   private def ivySettings = Seq(
