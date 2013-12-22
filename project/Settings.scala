@@ -18,13 +18,14 @@ trait Settings {
   	// prevent deps update check on every clean/compile by moving
     // sbt cache config & update dirs away from clean's reach
   	cacheDirectory <<= baseDirectory / "sbt-cache-update",
-  	ivyConfiguration <<= (ivyConfiguration, baseDirectory) map {
-	  	case (c: InlineIvyConfiguration, b) => import c._
+		cleanKeepFiles <+= target / "streams",
+		ivyConfiguration <<= (ivyConfiguration) map {
+	  	case (c: InlineIvyConfiguration) => import c._
 	  		new InlineIvyConfiguration(
-	  			paths, resolvers, otherResolvers, moduleConfigurations, localOnly, lock,
-	  			checksums, resolutionCacheDir.map(_ => b / "sbt-cache-config"), log
+	  			paths, resolvers, otherResolvers, moduleConfigurations, localOnly, lock, 
+					checksums, resolutionCacheDir.map(_=> baseDirectory / "sbt-cache-config"), log
 	  		)
-	  	case (other, _) => other
+	  	case x=>x
   	}
   )
   
