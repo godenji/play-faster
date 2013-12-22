@@ -27,8 +27,7 @@ object ApplicationBuild extends Build with Transformers with Settings {
   		lessEntryPoints := Nil, coffeescriptEntryPoints := Nil, javascriptEntryPoints := Nil,
   		
   		// prevent sbt from resolving deps on every clean/compile
-  		skip in update := true
-  		
+			offline := true	
   	).dependsOn(common,foo,bar).aggregate(foo,bar)
 
 }
